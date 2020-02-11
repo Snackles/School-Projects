@@ -6,62 +6,86 @@
 # Statistics
 enjoysMathStats = {True: 63, False: 12}
 englishFirstLangStats = {True: 94, False: 6}
-gradeTookOssltStats = {9: 8, 10: 92, 11: 0, 12: 0}
+agePercentilesStats = {14: 15.8,
+                       24: 11.5,
+                       54: 40.5,
+                       64: 14.1,
+                       130: 18.1}
 
-def getInputOfType(message, failMessage, desiredType, min = None, max = None):
+
+def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
     """
     Loops until the user provides an input of desired type
     Params:
         message - the prompt for the user input
         failMessage - the message to give when input is of wrong type
         desiredType - the type of user input expected
+        min - the minimum value, only used if the desired type is an int
+        max - the maximum value, only used if the desired type is an int
     Returns:
-        userInput - the user's input thaty was the correct type
+        userInput - the user's input that was the correct type
     """
+
     while True:
         userInput = input(message)
         if desiredType == int:
-                try:
-                    userInput = int(userInput)
-                    if min and max:
-                        if not (userInput >= min and userInput <= max):
-                            raise ValueError
-                except ValueError:
-                    print(failMessage)
-                else:
-                    return int(userInput)
+            try:
+                userInput = int(userInput)
+                # If the value is outside of the min and max
+                if minVal is not None and maxVal is not None:
+                    if not (maxVal >= userInput >= minVal):
+                        raise ValueError
+            except ValueError:
+                print(failMessage)
+            else:
+                # Input is correct type
+                return int(userInput)
+
         elif desiredType == float:
             try:
                 float(userInput)
             except ValueError:
                 print(failMessage)
             else:
+                # Input is correct type
                 return float(userInput)
+
         elif desiredType == bool:
-            if(userInput.lower() == 'yes'):
+            # Boolean input is in terms of 'yes' or 'no' for user-friendliness
+            if userInput.lower() == 'yes':
                 return True
             elif userInput.lower() == 'no':
                 return False
             else:
                 print(failMessage)
         else:
-            print("ERROR: That type isn't implemented yet.")
-            return False
+            # The desired type is not one of the expected ones (bool, int, float)
+            raise ValueError
+
 
 # Poll questions
-# enjoysMath = getInputOfType('Do you enjoy math?', 'Sorry, please respond with yes or no', bool)
-# if enjoysMath == True:
-#     print('63% of students agree with you!')
-# else:
-#     print('12% of students agree with you!')
-#
-# englishFirstLang = getInputOfType('Do you speak english as your first language?', 'Sorry, please respond with yes or no', bool)
-# if englishFirstLang == True:
-#     print('So does 94% of the school!')
-# else:
-#     print('6% of the school doesn\'t either!')
+print('Welcome to the fun poll thingy')
+print('Data sources: 2018 Peel Student Census, 2016 Canadian Census')
 
-gradeTookOsslt = getInputOfType('In what grade did you take the OSSLT?', 'Sorry, please respond with a number from 9 to 12', int, 9, 12)
+enjoysMath = getInputOfType('Do you enjoy math?', 'Sorry, please respond with yes or no', bool)
+if enjoysMath == True:
+    print('63% of PCSS students agree with you!')
+else:
+    print('12% of PCSS students agree with you!')
 
+englishFirstLang = getInputOfType('Do you speak english as your first language?',
+                                  'Sorry, please respond with yes or no', bool)
+if englishFirstLang == True:
+    print('So does 94% of the school!')
+else:
+    print('6% of the school doesn\'t either!')
 
-# print('result is', getInputOfType('give me a number: ', 'Try again!', bool))
+# Max age 130, the oldest person ever was 122
+userAge = getInputOfType('How old are you?', 'Sorry, please provide a number from 0 to 130', int, 0, 130)
+for age in agePercentilesStats:
+    if userAge <= age:
+        print(agePercentilesStats[age], 'percent of Canadians are in the same generation as you!')
+        # Stop the loop so it doesn't print every generation above the correct one
+        break
+
+print('Thanks for using the fun poll thingy, come again!')
