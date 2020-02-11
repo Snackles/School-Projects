@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Comments</title>
+    <link rel="stylesheet" type="text/css" href="TestApp/show_comments.css">
 </head>
 <body>
     {% for comment in comments %}
-        <div class="comments" style="padding: 10px;">
-          <p class="font-weight-bold">
+        <div class="comment-container" style="padding: 10px;">
+          <p class="comment-header">
             Comment by {{ comment.author }}
-            <span class=" text-muted font-weight-normal">
+            <span class="comment-date">
               on {{ comment.postDate }}
             </span>
           </p>
