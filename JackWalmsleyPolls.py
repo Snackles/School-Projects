@@ -1,16 +1,17 @@
 # Name: Jack Walmsley
 # Date: 2019-02-10
-# Filename: Project1-Poll.py
-# Purpose: To create a user poll with three questions and error=checking
+# Filename: JackWalmsleyPolls.py
+# Purpose: To create a user poll with three questions and error-checking, which gives the user some interesting data
+# based on their answers
 
-# Statistics
-enjoysMathStats = {True: 63, False: 12}
-englishFirstLangStats = {True: 94, False: 6}
+# Percentages for different answers
+enjoysMathStats = {True: 63, False: 12} # Do you enjoy math?
+englishFirstLangStats = {True: 94, False: 6}    # Is english your first language?
 generationStats = {14: 15.8,
                    24: 11.5,
                    54: 40.5,
                    64: 14.1,
-                   130: 18.1}
+                   130: 18.1}   # How old are you? Keys are maximum ages for each generation (eg. 0-14, 15-24, etc.)
 
 
 def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
@@ -41,20 +42,6 @@ def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
                 # Input is correct type and within min and max
                 return int(userInput)
 
-        elif desiredType == float:
-            try:
-                userInput = float(userInput)
-                # If the value is outside of the min and max
-                if minVal is not None and maxVal is not None:
-                    if not (maxVal >= userInput >= minVal):
-                        raise ValueError
-            except ValueError:
-                print(failMessage)
-                continue
-            else:
-                # Input is correct type and within min and max
-                return float(userInput)
-
         elif desiredType == bool:
             # Boolean input is in terms of 'yes' or 'no' for user-friendliness
             if userInput.lower() == 'yes':
@@ -65,7 +52,7 @@ def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
                 print(failMessage)
                 continue
         else:
-            # The desired type is not one of the expected ones (int, float, bool)
+            # The desired type is not one of the expected ones (int, bool)
             raise ValueError
 
 
