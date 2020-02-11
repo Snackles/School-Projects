@@ -5,13 +5,13 @@
 # based on their answers
 
 # Percentages for different answers
-enjoysMathStats = {True: 63, False: 12} # Do you enjoy math?
-englishFirstLangStats = {True: 94, False: 6}    # Is english your first language?
+enjoysMathStats = {True: 63, False: 12}  # Do you enjoy math?
+englishFirstLangStats = {True: 94, False: 6}  # Is english your first language?
 generationStats = {14: 15.8,
                    24: 11.5,
                    54: 40.5,
                    64: 14.1,
-                   130: 18.1}   # How old are you? Keys are maximum ages for each generation (eg. 0-14, 15-24, etc.)
+                   130: 18.1}  # How old are you? Keys are maximum ages for each generation (eg. 0-14, 15-24, etc.)
 
 
 def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
@@ -27,7 +27,7 @@ def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
         userInput - the user's input that was the correct type
     """
     while True:
-        userInput = input(message + ' ') # Add a space to the end of the question for readability
+        userInput = input(message + ' ')  # Add a space to the end of the question for readability
         if desiredType == int:
             try:
                 userInput = int(userInput)
