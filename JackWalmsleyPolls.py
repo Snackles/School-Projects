@@ -14,67 +14,82 @@ generationStats = {14: 15.8,
                    130: 18.1}  # How old are you? Keys are maximum ages for each generation (eg. 0-14, 15-24, etc.)
 
 
-def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
-    """
-    Loops until the user provides an input of desired type
-    Params:
-        message - the prompt for the user input
-        failMessage - the message to give when input is of wrong type
-        desiredType - the type of user input expected
-        min - the minimum value, only used if the desired type is a number
-        max - the maximum value, only used if the desired type is a number
-    Returns:
-        userInput - the user's input that was the correct type
-    """
-    while True:
-        userInput = input(message + ' ')  # Add a space to the end of the question for readability
-        if desiredType == int:
+class InputGetter:
+    def __init__(self, prompt, failMessage):
+        self.prompt = prompt  # The prompt to ask for input with
+        self.failMessage = failMessage  # The error message when the input is of the wrong type
+
+    def get_int(self, min_val=None, max_val=None):
+        """
+        Loops until the user provides a valid integer from maxVal to minVal
+
+        :param min_val: The minimum input (Default None)
+        :type min_val: int
+        :param max_val: The maximum input (Default None)
+        :type max_val: int
+
+        :return int: The user's final input
+        """
+        while True:
+            user_in = input(self.prompt + ' ')  # Add a space to the end of the question for readability
             try:
-                userInput = int(userInput)
-                # If the value is outside of the min and max
-                if minVal is not None and maxVal is not None:
-                    if not (maxVal >= userInput >= minVal):
+                user_in = int(user_in)
+                # If min and max exist and input is within them
+                if min_val is not None and max_val is not None:
+                    if not (max_val >= user_in >= min_val):
                         raise ValueError
             except ValueError:
-                print(failMessage)
+                print(self.failMessage)
                 continue
             else:
                 # Input is correct type and within min and max
-                return int(userInput)
+                return user_in
 
-        elif desiredType == bool:
-            # Boolean input is in terms of 'yes' or 'no' for user-friendliness
-            if userInput.lower() == 'yes':
+    def get_bool(self, true_inputs=("yes", "yep", "true", "definitely", "totally"),
+                 false_inputs=("no", "false", "nope", "never")):
+        """
+        Loops until the user provides a bool input, as decided by trueInput and falseInput
+        :param true_inputs: The user inputs to be understood as True
+        :type true_inputs: list
+        :param false_inputs: The user inputs to be understood as False
+        :type false_inputs: list
+
+        :return bool: The user's final input
+        """
+
+        while True:
+            user_in = input(self.prompt + ' ')  # Add a space to the end of the question for readability
+            if user_in.lower() in true_inputs:  # Remove capitalization just in case user types "Yes", for example
                 return True
-            elif userInput.lower() == 'no':
+            elif user_in.lower() in false_inputs:
                 return False
             else:
-                print(failMessage)
+                print(self.failMessage)
                 continue
-        else:
-            # The desired type is not one of the expected ones (int, bool)
-            raise ValueError
 
 
 # Poll questions
-print('Welcome to the fun poll thingy')
+print('Welcome to the fun poll thingy!')
 print('Data sources: 2017 Math EQAO, 2018 Peel Student Census, 2016 Canadian Census')
 
-enjoysMath = getInputOfType('Do you enjoy math?', 'Sorry, please respond with yes or no', bool)
+# Do you enjoy math?
+enjoysMath = InputGetter("Do you enjoy math?",
+                         "Sorry, this is a yes or no question").get_bool()
 if enjoysMath:
     print('63% of PCSS students agree with you!')
 else:
     print('12% of PCSS students agree with you!')
 
-englishFirstLang = getInputOfType('Do you speak english as your first language?',
-                                  'Sorry, please respond with yes or no', bool)
+# Is english your first language?
+englishFirstLang = InputGetter("Do you speak english as your first language?",
+                               "Sorry, this is a yes or no question").get_bool()
 if englishFirstLang:
     print('So does 94% of the school!')
 else:
     print('6% of the school doesn\'t either!')
 
-# Max age 130, the oldest person ever was 122 so I should be good
-userAge = getInputOfType('How old are you?', 'Sorry, please provide a whole number from 0 to 130', int, 0, 130)
+# How old are you?
+userAge = InputGetter("How old are you?", "Sorry, I need a whole number from 0 to 130").get_int(0, 130)
 for age in generationStats:
     if userAge <= age:
         print(generationStats[age], 'percent of Canadians are in the same generation as you!')
