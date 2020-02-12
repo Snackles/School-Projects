@@ -15,9 +15,9 @@ generationStats = {14: 15.8,
 
 
 class InputGetter:
-    def __init__(self, prompt, failMessage):
+    def __init__(self, prompt, fail_message):
         self.prompt = prompt  # The prompt to ask for input with
-        self.failMessage = failMessage  # The error message when the input is of the wrong type
+        self.fail_message = fail_message  # The error message when the input is of the wrong type
 
     def get_int(self, min_val=None, max_val=None):
         """
@@ -39,7 +39,7 @@ class InputGetter:
                     if not (max_val >= user_in >= min_val):
                         raise ValueError
             except ValueError:
-                print(self.failMessage)
+                print(self.fail_message)
                 continue
             else:
                 # Input is correct type and within min and max
@@ -64,7 +64,7 @@ class InputGetter:
             elif user_in.lower() in false_inputs:
                 return False
             else:
-                print(self.failMessage)
+                print(self.fail_message)
                 continue
 
 
