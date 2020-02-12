@@ -29,5 +29,4 @@ def add_comment(request):
 
 def show_comments(request):
     comments = Comment.objects.all().filter(visible=True)
-    comment_form = CommentForm()
     return render(request, 'templates/TestApp/show_comments.html', {'comments': comments})

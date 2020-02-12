@@ -5,13 +5,16 @@
     <title>Write a comment</title>
 </head>
 <body>
-    <div class="card-body">
-        <h3>Leave a comment</h3>
-        <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form.as_p }}
-          {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
-        </form>
-      </div>
+<div class="card-body">
+    <h3>Leave a comment</h3>
+    <form method="post" style="margin-top: 1.3em;">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+    </form>
+</div>
+<a href="/show_comments">
+    <button>View Comments</button>
+</a>
 </body>
 </html>
