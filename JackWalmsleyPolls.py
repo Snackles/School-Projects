@@ -58,7 +58,7 @@ def getInputOfType(message, failMessage, desiredType, minVal=None, maxVal=None):
 
 # Poll questions
 print('Welcome to the fun poll thingy')
-print('Data sources: 2018 Peel Student Census, 2016 Canadian Census')
+print('Data sources: 2017 Math EQAO, 2018 Peel Student Census, 2016 Canadian Census')
 
 enjoysMath = getInputOfType('Do you enjoy math?', 'Sorry, please respond with yes or no', bool)
 if enjoysMath:
@@ -73,7 +73,7 @@ if englishFirstLang:
 else:
     print('6% of the school doesn\'t either!')
 
-# Max age 130, the oldest person ever was 122
+# Max age 130, the oldest person ever was 122 so I should be good
 userAge = getInputOfType('How old are you?', 'Sorry, please provide a whole number from 0 to 130', int, 0, 130)
 for age in generationStats:
     if userAge <= age:
