@@ -2,6 +2,10 @@ from .forms import CommentForm
 from .models import Comment
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.core import serializers
+
 
 import json
 
@@ -30,3 +34,8 @@ def add_comment(request):
 def show_comments(request):
     comments = Comment.objects.all().filter(visible=True)
     return render(request, 'templates/TestApp/show_comments.html', {'comments': comments})
+
+
+def get_comments(request):
+    data = serializers.serialize('json', Comment.objects.all())
+    return HttpResponse(data)
