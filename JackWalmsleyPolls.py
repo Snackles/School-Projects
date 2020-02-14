@@ -23,9 +23,9 @@ class InputGetter:
         """
         Loops until the user provides a valid integer from maxVal to minVal
 
-        :param min_val: The minimum input (Default None)
+        :param min_val: The minimum input, inclusive (Default None)
         :type min_val: int
-        :param max_val: The maximum input (Default None)
+        :param max_val: The maximum input, inclusive (Default None)
         :type max_val: int
 
         :return int: The user's final input
@@ -34,7 +34,7 @@ class InputGetter:
             user_in = input(self.prompt + ' ')  # Add a space to the end of the question for readability
             try:
                 user_in = int(user_in)
-                # If min and max exist and input is within them
+                # If min and max exist and input is not within them, raise ValueError
                 if min_val is not None and max_val is not None:
                     if not (max_val >= user_in >= min_val):
                         raise ValueError
@@ -59,7 +59,7 @@ class InputGetter:
 
         while True:
             user_in = input(self.prompt + ' ')  # Add a space to the end of the question for readability
-            if user_in.lower() in true_inputs:  # Remove capitalization just in case user types "Yes", for example
+            if user_in.lower() in true_inputs:  # lower() to remove capitalization just in case user types "Yes", for example
                 return True
             elif user_in.lower() in false_inputs:
                 return False
