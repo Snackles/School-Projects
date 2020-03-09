@@ -15,6 +15,9 @@ class StudentNotFoundException(Exception):
 
 
 class Student:
+    """
+    The datatype for one student in the database
+    """
     def __init__(self, first, last, number, average):
         self.first_name = first
         self.last_name = last
@@ -22,8 +25,17 @@ class Student:
         self.average = average
         students.append(self)
 
+    def delete(self):
+        students.remove(self)
+        del self
+
     @staticmethod
     def get_student_by_number(number):
+        """
+        Finds a student by student number
+        :param number: the student number to search by
+        :return: the student object with provided student number
+        """
         for s in students:
             if s.student_number == number:
                 return s
@@ -31,6 +43,11 @@ class Student:
 
     @staticmethod
     def get_students_by_first(first):
+        """
+        Finds students by first name
+        :param first: the first name to search for
+        :return: a list of student with the provided first name
+        """
         result = []
         for s in students:
             if s.first_name == first:
@@ -42,6 +59,10 @@ class Student:
 
     @staticmethod
     def get_board_average():
+        """
+        Finds the average of all student averages in the database
+        :return: the average of all student averages
+        """
         return sum(s.average for s in students)
 
 
