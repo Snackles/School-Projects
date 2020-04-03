@@ -5,6 +5,7 @@
 
 students = []  # The database of students
 
+
 class StudentNotFoundException(Exception):
     """
     Exception raised when a student can not be found with the provided information
@@ -111,7 +112,7 @@ class Student:
 
 class UI:
     """
-    The UI for interfacing with the database
+    The system for interfacing with the database
     """
 
     def __init__(self):
@@ -184,7 +185,6 @@ class UI:
     def display_all(self):
         """
         UI for displaying all students in database
-        :return:
         """
         if len(students) == 0:
             print("No students in database")
@@ -196,7 +196,6 @@ class UI:
     def search_database(self):
         """
         UI home screen for searching the database
-        :return:
         """
         searches = {
             1: self.search_by_first_name,
@@ -208,12 +207,10 @@ class UI:
         print("3. Search by student number")
         user_choice = int(input(self.cursor_str))
         print(searches[user_choice]())
-        pass
 
     def search_by_first_name(self):
         """
         UI for searching the database by first
-        :return:
         """
         first = input("Enter the student's first name': ")
         try:
